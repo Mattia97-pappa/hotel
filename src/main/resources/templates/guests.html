@@ -12,13 +12,13 @@
 </head>
 
 <body>
-    <div th:insert="~{index :: menu('guests')}"></div>
+    <div th:include="~{index :: menu('guests')}"></div>
     <div class="row">
         <div class="col-11">
-            <h3>GUESTS</h3>
+            <h3>Ospiti</h3>
         </div>
         <div class="col-1">
-            <a th:href="@{/guests/new}" class="btn btn-primary btn-sm"> Add Guest </a>
+            <a th:href="@{/guests/new}" class="btn btn-primary btn-sm"> Aggiungi Ospite </a>
         </div>
     </div>
 
@@ -26,19 +26,19 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th>Nome</th>
+                <th>Cognome</th>
                 <th>Email</th>
-                <th>Phone</th>
-                <th>Nationality</th>
-                <th>Country</th>
-                <th>City</th>
-                <th>State</th>
-                <th>Province</th>
-                <th>Address</th>
-                <th>Birth Day</th>
-                <th>Identity Card</th>
-                <th colspan="2">Actions</th>
+                <th>Telefono</th>
+                <th>Nazionalità</th>
+                <th>Paese</th>
+                <th>Città</th>
+                <th>Cap</th>
+                <th>Provincia</th>
+                <th>Indirizzo</th>
+                <th>Data di nascita</th>
+                <th>Documento d'identità</th>
+                <th colspan="2">Azioni</th>
             </tr>
         </thead>
         <tbody>
@@ -51,16 +51,16 @@
                 <td th:text="${guest.nationality}">American</td>
                 <td th:text="${guest.country}">USA</td>
                 <td th:text="${guest.city}">New York</td>
-                <td th:text="${guest.state}">NY</td>
+                <td th:text="${guest.cap}">NY</td>
                 <td th:text="${guest.province}">Manhattan</td>
                 <td th:text="${guest.address}">123 Main St</td>
                 <td th:text="${guest.birthDay}">1990-01-01</td>
                 <td th:text="${guest.identityCard}">ID123456</td>
                 <td>
-                    <a th:href="@{/guests/edit/{id}(id=${guest.id})}" class="btn btn-primary btn-sm mb-3">Edit</a>
+                    <a th:href="@{/guests/edit/{id}(id=${guest.id})}" class="btn btn-primary btn-sm mb-3">Edita</a>
                 </td>
                 <td>
-                    <a th:href="@{/guests/delete/{id}(id=${guest.id})}" class="btn btn-primary btn-sm mb-3">Del</a>
+                    <a th:href="@{/guests/delete/{id}(id=${guest.id})}" class="btn btn-primary btn-sm mb-3">Elimina</a>
                 </td>
             </tr>
         </tbody>

@@ -1,70 +1,56 @@
 package hotel.booking.model;
+import java.math.BigDecimal;
 
 import jakarta.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
 @Table(name = "Rooms")
 public class Room {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+	@GeneratedValue(strategy =  GenerationType.IDENTITY)
 	private int id;
+    
+    @Column(name = "roomNumber")
+    private String roomNumber;
+    
+    @Column(name = "type")
+    private String type;
+    
+    @Column(name = "price")
+    private BigDecimal price;
 
-	@Column(name = "roomNumber")
-	private String roomNumber;
 
-	@Enumerated(EnumType.STRING)
-	@Column(name = "type")
-	private RoomType type;
+    public int getId() {
+        return id;
+    }
 
-	@Column(name = "price")
-	private BigDecimal price;
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	@Column(name = "is_available")
-	private boolean available;
+    public String getRoomNumber() {
+        return roomNumber;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public void setRoomNumber(String number) {
+        this.roomNumber = number;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public String getRoomNumber() {
-		return roomNumber;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public void setRoomNumber(String roomNumber) {
-		this.roomNumber = roomNumber;
-	}
+    public BigDecimal getPrice() {
+        return price;
+    }
 
-	public RoomType getType() {
-		return type;
-	}
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
 
-	public void setType(RoomType type) {
-		this.type = type;
-	}
-
-	public BigDecimal getPrice() {
-		return price;
-	}
-
-	public void setPrice(BigDecimal price) {
-		this.price = price;
-	}
-
-	public boolean getAvailable() {
-		return available;
-	}
-
-	public void setAvailable(boolean available) {
-		this.available = available;
-	}
-
-	public enum RoomType {
-		Single, Double, Suite
-	}
 }

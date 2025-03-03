@@ -34,8 +34,8 @@ public class Guest {
 	@Column(name = "city")
 	private String city;
 
-	@Column(name = "state")
-	private String state;
+	@Column(name = "cap")
+	private String cap;
 
 	@Column(name = "province")
 	private String province;
@@ -99,11 +99,11 @@ public class Guest {
 	public void setCity(String city) {
 		this.city = city;
 	}
-	public String getState() {
-		return state;
+	public String getCap() {
+		return cap;
 	}
-	public void setState(String state) {
-		this.state = state;
+	public void setCap(String state) {
+		this.cap = state;
 	}
 	public String getProvince() {
 		return province;

@@ -1,24 +1,27 @@
 package hotel.booking.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import hotel.booking.model.Autocomplete;
+import hotel.booking.model.Guest;
 import hotel.booking.model.Room;
+import hotel.booking.repository.GuestRepository;
 import hotel.booking.repository.RoomRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 @RequestMapping("/rooms")
-public class RoomController {
+public class RoomsController {
 
-	
 	@Autowired
 	private RoomRepository roomRepository;
-
 
 	@GetMapping("/all")
 	public String listRooms(Model model) {
@@ -35,20 +38,15 @@ public class RoomController {
 
 	@PostMapping("/ins")
 	public String saveRoom(@ModelAttribute("room") Room room) {
-		System.out.println("isAvailable: "+ room.getAvailable());
 		roomRepository.save(room);
 		return "redirect:/rooms/all";
 	}
 
 	@GetMapping("/edit/{id}")
 	public String showEditRoomForm(@PathVariable("id") int id, Model model) {
-		if(roomRepository.existsById(id)) {
-			Room room = roomRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid room Id:" + id));
-			model.addAttribute("room", room);
-			return "editRoom";
-		}
-		else return "redirect:/rooms/all";
-		
+		Room room = roomRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid room Id:" + id));
+		model.addAttribute("room", room);
+		return "editRoom";
 	}
 
 	@PostMapping("/upd")
@@ -59,24 +57,12 @@ public class RoomController {
 
 	@GetMapping("/delete/{id}")
 	public String deleteRoom(@PathVariable("id") int id) {
+		
 		if(roomRepository.existsById(id)) 
 			roomRepository.deleteById(id);;
 		return "redirect:/rooms/all";
 	}
 
-@GetMapping("/autocomplete")
-	@ResponseBody
-	public List<Autocomplete> autocomplete(@RequestParam String term) {
-		List<Autocomplete> autoList = new ArrayList<Autocomplete>();
-		List<Room> rooms = roomRepository.findByPatternLike(term);
-
-		for (Room room : rooms) {
-			Autocomplete item = new Autocomplete();
-			item.setLabel(room.getRoomNumber() +" - "+ room.getType());
-			item.setValue(room.getId());
-			autoList.add(item);
-		}
-		return autoList;
-	}
+	
 	// Add more CRUD methods for each entity as needed
 }
