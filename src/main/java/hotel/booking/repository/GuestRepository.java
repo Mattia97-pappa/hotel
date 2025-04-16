@@ -1,5 +1,6 @@
 package hotel.booking.repository;
 
+import java.lang.annotation.Native;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,4 +10,6 @@ import hotel.booking.model.Guest;
 
 public interface GuestRepository extends JpaRepository<Guest, Integer> {
 
+@NativeQuery("SELECT *FROM Guests WHERE Guests.firstName LIKE %?1% OR Guests.lastName LIKE %?1%")
+List<Guest>findByPatternLike(String pattern);
 }

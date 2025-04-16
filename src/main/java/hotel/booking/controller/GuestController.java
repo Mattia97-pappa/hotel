@@ -4,13 +4,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import hotel.booking.model.Autocomplete;
 import hotel.booking.model.Guest;
+import hotel.booking.model.Room;
 import hotel.booking.repository.GuestRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -46,6 +46,7 @@ public class GuestController {
 		return "editGuest";
 	}
 
+
 	@PostMapping("/upd")
 	public String updateGuest(@ModelAttribute("guest") Guest guest) {
 		guestRepository.save(guest);
@@ -54,12 +55,38 @@ public class GuestController {
 
 	@GetMapping("/delete/{id}")
 	public String deleteGuest(@PathVariable("id") int id) {
-		// Guest guest = guestRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid guest Id:" + id));
+		
 		if(guestRepository.existsById(id)) 
 			guestRepository.deleteById(id);;
 		return "redirect:/guests/all";
 	}
 
-	
-	// Add more CRUD methods for each entity as needed
+	@PostMapping("/search")
+public String listGuestsByPatternLike(Model model, @RequestParam String pattern) {
+List<Guest> guests = guestRepository.findByPatternLike(pattern);
+System.out.println(" [pattern: "+pattern +"]");
+model.addAttribute("guests", guests);
+return "guests";
+}
+
+@GetMapping("/autocomplete")
+	@ResponseBody
+	public List<Autocomplete> autocomplete(@RequestParam String term) {
+		List<Autocomplete> autoList = new ArrayList<Autocomplete>();
+		List<Guest> guests = guestRepository.findByPatternLike(term);
+		for (Guest guest : guests) {
+			Autocomplete item = new Autocomplete();
+			item.setLabel(guest.getLastName() +" "+ guest.getFirstName());
+			item.setValue(guest.getId());
+			autoList.add(item);
+		}
+		return autoList;
+	}
+
+
+
+
+
+
+
 }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import hotel.booking.model.Autocomplete;
 import hotel.booking.model.Guest;
 import hotel.booking.model.Room;
 import hotel.booking.repository.GuestRepository;
@@ -12,8 +13,6 @@ import hotel.booking.repository.RoomRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -36,6 +35,22 @@ public class RoomsController {
 		return "newRoom";
 	}
 
+@GetMapping("/autocomplete")
+@ResponseBody
+public List<Autocomplete> autocomplete(@RequestParam String term) {
+List<Autocomplete> autoList = new ArrayList<Autocomplete>();
+List<Room> rooms = roomRepository.findByPatternLike(term);
+
+for (Room room : rooms) {
+Autocomplete item = new Autocomplete();
+item.setLabel(room.getRoomNumber() +" - "+ room.getType());
+item.setValue(room.getId());
+autoList.add(item);
+}
+return autoList;
+}
+	
+	
 	@PostMapping("/ins")
 	public String saveRoom(@ModelAttribute("room") Room room) {
 		roomRepository.save(room);
@@ -49,6 +64,9 @@ public class RoomsController {
 		return "editRoom";
 	}
 
+
+	
+	
 	@PostMapping("/upd")
 	public String updateRoom(@ModelAttribute("room") Room room) {
 		roomRepository.save(room);
@@ -64,5 +82,5 @@ public class RoomsController {
 	}
 
 	
-	// Add more CRUD methods for each entity as needed
+
 }

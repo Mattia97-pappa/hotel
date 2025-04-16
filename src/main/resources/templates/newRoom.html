@@ -26,6 +26,7 @@
         <div>
             <label class="col-1" for="type">Tipo stanza:</label>
             <select class="col-2" id="type" th:field="*{type}">
+       
                 <option value="Singola" th:selected="${room.type == 'Singola'}">Singola</option>
                 <option value="Doppia" th:selected="${room.type == 'Doppia'}">Doppia</option>
                 <option value="Suite" th:selected="${room.type == 'Suite'}">Suite</option>
@@ -41,5 +42,23 @@
             <button type="submit" class="col-2 btn btn-primary"> Salva </button>
         </div>
     </form>
+    <tbody>
+        <tr th:each="room : ${rooms}">
+            <td th:text="${room.id}">1</td>
+            <td th:text="${room.roomNumber}">101</td>
+            <td th:text="${room.type}">Singola</td>
+            <td th:text="${room.price}">100</td>
+            
+        <td>
+                <a th:href="@{/rooms/edit/{id}(id=${room.id})}" class="btn btn-primary btn-sm mb-3">Edita</a>
+            </td>
+            <td>
+                <a th:href="@{/rooms/delete/{id}(id=${room.id})}" class="btn btn-primary btn-sm mb-3">Elimina</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
 </body>
 </html>
