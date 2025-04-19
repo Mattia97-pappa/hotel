@@ -1,5 +1,9 @@
 🏨 Hotel Booking Management
 
+ 🔴For read the codes you have to go inside the "src" folder.🔴
+
+
+
 A full-stack Java-based web application for managing hotel bookings, guests, and rooms.  
 Designed for admin use only.
 
