@@ -1,7 +1,7 @@
-Hotel🏨
+Hotel
 
 
-👀 Il codice sorgente completo si trova in src, suddiviso in package chiari:
+ Il codice sorgente completo si trova in src, suddiviso in package chiari:
 
 controller → gestione delle rotte
 
@@ -13,7 +13,7 @@ security & config → login, autenticazione e accessi
 
 Accedi all'app dal browser vai su http://localhost:8080
 
-▶️ Per eseguire il progetto Clona la repository con il seguente comando su gitbash
+Per eseguire il progetto Clona la repository con il seguente comando su gitbash
 
 
 ```bash
@@ -103,7 +103,7 @@ CREATE TABLE `rooms` (
 
 
 
-🎥 Demo Videos
+Demo Videos
 
 -
   [Watch on Vimeo](https://vimeo.com/1076051601)
